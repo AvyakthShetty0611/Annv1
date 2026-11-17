@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday - Page 1</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      padding: 20px;
+      background: radial-gradient(circle, #fff1f2 0%, #ffe4e6 55%, #fecdd3 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Continuous Webpage Background Hearts Container */
+    .bg-hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -60px;
+      color: #e11d48;
+      text-shadow: 0 2px 10px rgba(225, 29, 72, 0.35);
+      user-select: none;
+      pointer-events: none;
+      opacity: 0;
+      animation: floatUpAndPop ease-in infinite;
+    }
+
+    @keyframes floatUpAndPop {
+      0% {
+        transform: translateY(0) scale(0.3) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.9;
+        transform: translateY(-8vh) scale(1.1) rotate(-10deg);
+      }
+      25% {
+        transform: translateY(-25vh) scale(1) rotate(12deg);
+      }
+      50% {
+        transform: translateY(-50vh) scale(1.05) rotate(-15deg);
+      }
+      75% {
+        transform: translateY(-75vh) scale(0.95) rotate(10deg);
+        opacity: 0.85;
+      }
+      100% {
+        transform: translateY(-110vh) scale(0.8) rotate(-20deg);
+        opacity: 0;
+      }
+    }
+
+    /* Centered Single-Page Photo Container (1.5x larger) */
+    .photo-stage {
+      position: relative;
+      z-index: 2;
+      width: min(660px, 92vw);
+      height: min(900px, 84vh);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 45px rgba(159, 18, 57, 0.22), 0 0 25px rgba(244, 63, 94, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      background-color: #ffe4e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: cardFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .photo-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    @keyframes cardFadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.94) translateY(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* Bottom Next Button */
+    .controls {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .next-btn {
+      padding: 12px 34px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      text-decoration: none;
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #e11d48;
+  border-radius: 50px;
+  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.25);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-btn:hover {
+  background-color: #be123c;
+  transform: translateY(-2px);
+}
+  </style>
+</head>
+<body>
+
+  <!-- Constant Floating Hearts Background -->
+  <div class="bg-hearts-container" id="bgHeartsContainer"></div>
+
+  <!-- Centered Photo Card -->
+  <main class="photo-stage">
+    <img src="annv.jpeg" alt="Birthday Card Photo" />
+  </main>
+
+  <!-- Bottom Next Button linking to Page 2 -->
+  <div class="controls">
+    <a href="page2.html?butterflies=true" class="nav-btn">Start &rarr;</a>
+  </div>
+
+  <script>
+    const heartsContainer = document.getElementById('bgHeartsContainer');
+    const heartSymbols = ['❤️', '💖', '💕', '💓', '❤️'];
+
+    function createFloatingHeart() {
+      if (!heartsContainer) return;
+
+      const heart = document.createElement('span');
+      heart.className = 'floating-heart';
+      heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+      heart.style.left = Math.random() * 98 + 'vw';
+
+      const size = Math.random() * 20 + 16;
+      heart.style.fontSize = size + 'px';
+
+      const duration = Math.random() * 4 + 6;
+      heart.style.animationDuration = duration + 's';
+
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+
+    setInterval(createFloatingHeart, 450);
+
+    for (let i = 0; i < 10; i++) {
+      setTimeout(createFloatingHeart, i * 180);
+    }
+  </script>
+</body>
+</html>

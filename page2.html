@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Anniversary - Page 2</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 24px;
+      background-color: #ffd6e0; /* Soft light pink background */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 1. Background Floating Hearts Container (Behind the center image) */
+    .bg-hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -60px;
+      color: #e11d48;
+      text-shadow: 0 2px 10px rgba(225, 29, 72, 0.35);
+      user-select: none;
+      pointer-events: none;
+      opacity: 0;
+      animation: floatUpAndPop ease-in infinite;
+    }
+
+    @keyframes floatUpAndPop {
+      0% {
+        transform: translateY(0) scale(0.3) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.9;
+        transform: translateY(-8vh) scale(1.1) rotate(-10deg);
+      }
+      25% {
+        transform: translateY(-25vh) scale(1) rotate(12deg);
+      }
+      50% {
+        transform: translateY(-50vh) scale(1.05) rotate(-15deg);
+      }
+      75% {
+        transform: translateY(-75vh) scale(0.95) rotate(10deg);
+        opacity: 0.85;
+      }
+      100% {
+        transform: translateY(-110vh) scale(0.8) rotate(-20deg);
+        opacity: 0;
+      }
+    }
+
+    /* 2. Falling Green Leaves Overlay Layer (Passes across the whole page) */
+    .leaves-layer {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    .falling-leaf {
+      position: absolute;
+      top: -60px;
+      user-select: none;
+      pointer-events: none;
+      filter: drop-shadow(0 3px 6px rgba(22, 101, 52, 0.22));
+      opacity: 0;
+      animation: leafFallAndSway linear infinite;
+    }
+
+    @keyframes leafFallAndSway {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      12% {
+        opacity: 0.85;
+      }
+      25% {
+        transform: translateY(26vh) translateX(26px) rotate(65deg);
+      }
+      50% {
+        transform: translateY(54vh) translateX(-22px) rotate(140deg);
+      }
+      75% {
+        transform: translateY(82vh) translateX(28px) rotate(230deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(112vh) translateX(-16px) rotate(320deg);
+        opacity: 0;
+      }
+    }
+
+    /* Double-Size Static Image Container (Same 880px x 640px size, no animations) */
+    .large-photo-stage {
+      position: relative;
+      z-index: 2;
+      width: min(880px, 94vw);
+      height: min(640px, 80vh);
+      background-color: #fff0f4; /* Solid opaque background blocks hearts behind it */
+      border-radius: 18px;
+      border: 2px solid #ffb3c6;
+      box-shadow: 0 18px 40px rgba(190, 24, 93, 0.14);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .large-photo-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Change to 'contain' if you don't want any edge cropping */
+      display: block;
+    }
+
+    /* Navigation Controls */
+    .controls {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .nav-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #e11d48;
+  border-radius: 50px;
+  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.25);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-btn:hover {
+  background-color: #be123c;
+  transform: translateY(-2px);
+}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Background Floating Hearts (Visible around the pink background) -->
+  <div class="bg-hearts-container" id="bgHeartsContainer"></div>
+
+  <!-- 2. Larger Slowly Falling Green Leaves (Drifts across the whole page) -->
+  <div class="leaves-layer" id="leavesLayer"></div>
+
+  <!-- Double-Sized Static Image Box -->
+  <main class="large-photo-stage">
+    <!-- Replace "photo2.jpg" with your second image filename in the annv folder -->
+    <img src="annv1.jpeg" alt="Second Page Photo" />
+  </main>
+
+  <!-- Navigation Buttons (Back to Page 1 & Next to Page 3 with Butterflies) -->
+  <div class="controls">
+    <a href="index.html" class="nav-btn">&larr; Back</a>
+    <a href="page3.html?butterflies=true" class="nav-btn">Next &rarr;</a>
+  </div>
+
+  <script>
+    // 1. Background Floating Hearts Generator
+    const heartsContainer = document.getElementById('bgHeartsContainer');
+    const heartSymbols = ['❤️', '💖', '💕', '💓', '❤️'];
+
+    function createFloatingHeart() {
+      if (!heartsContainer) return;
+
+      const heart = document.createElement('span');
+      heart.className = 'floating-heart';
+      heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+      heart.style.left = Math.random() * 98 + 'vw';
+
+      const size = Math.random() * 20 + 16;
+      heart.style.fontSize = size + 'px';
+
+      const duration = Math.random() * 4 + 6;
+      heart.style.animationDuration = duration + 's';
+
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+
+    setInterval(createFloatingHeart, 450);
+
+    for (let i = 0; i < 10; i++) {
+      setTimeout(createFloatingHeart, i * 180);
+    }
+
+    // 2. Larger Slowly Falling Green Leaves Generator
+    const leavesLayer = document.getElementById('leavesLayer');
+    const leafSymbols = ['🍃', '🌿','🍁','🍂'];
+
+    function createFallingLeaf() {
+      if (!leavesLayer) return;
+
+      const leaf = document.createElement('span');
+      leaf.className = 'falling-leaf';
+      leaf.innerText = leafSymbols[Math.floor(Math.random() * leafSymbols.length)];
+      leaf.style.left = Math.random() * 96 + 'vw';
+
+      const size = Math.random() * 16 + 30; // Larger size: 30px to 46px
+      leaf.style.fontSize = size + 'px';
+
+      const duration = Math.random() * 5 + 15; // Slow drift: 15s to 20s
+      leaf.style.animationDuration = duration + 's';
+
+      leavesLayer.appendChild(leaf);
+
+      setTimeout(() => {
+        leaf.remove();
+      }, duration * 1000);
+    }
+
+    setInterval(createFallingLeaf, 2400);
+
+    for (let i = 0; i < 4; i++) {
+      setTimeout(createFallingLeaf, i * 1100);
+    }
+  </script>
+
+</body>
+</html>
