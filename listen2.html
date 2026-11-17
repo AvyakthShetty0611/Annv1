@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bijapur Days with You - Listen</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      padding: 24px;
+      background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 42%, #bae6fd 78%, #fef08a 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Glowing Sun in Top-Right Sky */
+    .sun {
+      position: fixed;
+      top: 42px;
+      right: 68px;
+      width: 115px;
+      height: 115px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fef9c3 15%, #fde047 55%, rgba(250, 204, 21, 0) 75%);
+      box-shadow: 0 0 60px 25px rgba(253, 224, 71, 0.75);
+      z-index: 1;
+      pointer-events: none;
+      animation: sunPulse 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes sunPulse {
+      0% { transform: scale(1); opacity: 0.92; }
+      100% { transform: scale(1.08); opacity: 1; }
+    }
+
+    /* Soft Drifting Clouds */
+    .cloud {
+      position: fixed;
+      background: rgba(255, 255, 255, 0.82);
+      border-radius: 100px;
+      z-index: 2;
+      pointer-events: none;
+      filter: blur(2px);
+      animation: driftCloud linear infinite;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: '';
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    .cloud-1 {
+      width: 180px;
+      height: 54px;
+      top: 14%;
+      left: -200px;
+      animation-duration: 38s;
+    }
+    .cloud-1::before { width: 80px; height: 80px; top: -38px; left: 26px; }
+    .cloud-1::after { width: 64px; height: 64px; top: -26px; left: 88px; }
+
+    .cloud-2 {
+      width: 220px;
+      height: 62px;
+      top: 30%;
+      left: -250px;
+      animation-duration: 48s;
+      animation-delay: 8s;
+    }
+    .cloud-2::before { width: 95px; height: 95px; top: -44px; left: 32px; }
+    .cloud-2::after { width: 75px; height: 75px; top: -30px; left: 105px; }
+
+    .cloud-3 {
+      width: 150px;
+      height: 46px;
+      top: 58%;
+      left: -180px;
+      animation-duration: 34s;
+      animation-delay: 16s;
+    }
+    .cloud-3::before { width: 68px; height: 68px; top: -32px; left: 22px; }
+    .cloud-3::after { width: 52px; height: 52px; top: -22px; left: 72px; }
+
+    @keyframes driftCloud {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(100vw + 320px)); }
+    }
+
+    /* Charcoal & Gray Birds Flying Across the Wider Upper Sky Zone (3% to 25%) */
+    .sky-bird {
+      position: fixed;
+      left: -80px;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.88;
+      animation: birdFlyAcross linear infinite;
+    }
+
+    .sky-bird svg {
+      display: block;
+      overflow: visible;
+    }
+
+    .bird-wing-left {
+      transform-origin: 24px 16px;
+      animation: flapLeft 0.55s ease-in-out infinite alternate;
+    }
+
+    .bird-wing-right {
+      transform-origin: 24px 16px;
+      animation: flapRight 0.55s ease-in-out infinite alternate;
+    }
+
+    @keyframes flapLeft {
+      0% { transform: rotate(-18deg) scaleY(1); }
+      100% { transform: rotate(22deg) scaleY(0.75); }
+    }
+
+    @keyframes flapRight {
+      0% { transform: rotate(18deg) scaleY(1); }
+      100% { transform: rotate(-22deg) scaleY(0.75); }
+    }
+
+    @keyframes birdFlyAcross {
+      0% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(28vw, -18px);
+      }
+      50% {
+        transform: translate(56vw, 14px);
+      }
+      75% {
+        transform: translate(84vw, -14px);
+      }
+      100% {
+        transform: translate(calc(100vw + 160px), 4px);
+      }
+    }
+
+    .bird-1 {
+      top: 4%;
+      width: 54px;
+      animation-duration: 20s;
+      animation-delay: 0s;
+    }
+
+    .bird-2 {
+      top: 12%;
+      width: 48px;
+      animation-duration: 22s;
+      animation-delay: 2.5s;
+    }
+    .bird-2 .bird-wing-left,
+    .bird-2 .bird-wing-right {
+      animation-duration: 0.6s;
+    }
+
+    .bird-3 {
+      top: 21%;
+      width: 52px;
+      animation-duration: 21s;
+      animation-delay: 5.5s;
+    }
+    .bird-3 .bird-wing-left,
+    .bird-3 .bird-wing-right {
+      animation-duration: 0.52s;
+    }
+
+    .bird-4 {
+      top: 7.5%;
+      width: 46px;
+      animation-duration: 23s;
+      animation-delay: 9.5s;
+    }
+
+    .bird-5 {
+      top: 17.5%;
+      width: 56px;
+      animation-duration: 19.5s;
+      animation-delay: 13s;
+    }
+    .bird-5 .bird-wing-left,
+    .bird-5 .bird-wing-right {
+      animation-duration: 0.58s;
+    }
+
+    .bird-6 {
+      top: 23.5%;
+      width: 48px;
+      animation-duration: 24s;
+      animation-delay: 16.5s;
+    }
+
+    /* Gol Gumbaz (Bijapur) Scenic Illustration in Bottom-Left Corner */
+    .gol-gumbaz-corner {
+      position: fixed;
+      bottom: -4px;
+      left: -10px;
+      width: min(390px, 42vw);
+      height: auto;
+      z-index: 3;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 20px rgba(120, 83, 45, 0.25));
+    }
+
+    /* Main Frosted Center Box */
+    .large-page-stage {
+      position: relative;
+      z-index: 5;
+      width: min(860px, 92vw);
+      min-height: min(580px, 78vh);
+      max-height: 80vh;
+      overflow-y: auto;
+      background-color: rgba(255, 255, 255, 0.44);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border-radius: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 20px 50px rgba(14, 116, 144, 0.18);
+      padding: 28px 40px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      color: #881337;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .top-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .large-page-stage h1 {
+      font-size: 2.25rem;
+      color: #9f1239;
+      text-shadow: 0 1px 10px rgba(255, 255, 255, 0.9);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.65;
+      color: #881337;
+      max-width: 650px;
+      text-shadow: 0 1px 8px rgba(255, 255, 255, 0.85);
+    }
+
+    /* Subtle Smaller White Box for "Photos & Videos" */
+    .photos-box-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 210px;
+      padding: 12px 34px;
+      margin: 2px 0;
+      background-color: rgba(255, 255, 255, 0.78);
+      border: 1.5px solid rgba(255, 179, 198, 0.9);
+      border-radius: 12px;
+      color: #881337;
+      font-size: 1.12rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(14, 116, 144, 0.12);
+      transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .photos-box-link:hover {
+      background-color: rgba(255, 255, 255, 0.95);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(14, 116, 144, 0.18);
+    }
+
+    .audio-card {
+      width: min(460px, 95%);
+      background: rgba(255, 241, 242, 0.85);
+      border: 2px solid rgba(244, 63, 94, 0.75);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.14);
+    }
+
+    audio {
+      width: 100%;
+      height: 38px;
+      outline: none;
+    }
+
+    .play-toggle-btn {
+      padding: 10px 26px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(127, 29, 29, 0.25);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .play-toggle-btn:hover {
+      background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+      transform: translateY(-1px);
+    }
+
+    .story-content {
+      width: 100%;
+      max-width: 720px;
+      margin-top: 6px;
+      font-size: 1.12rem;
+      font-weight: 500;
+      line-height: 1.75;
+      color: #881337;
+      text-align: left;
+      white-space: pre-line;
+      text-shadow: 0 1px 8px rgba(255, 255, 255, 0.85);
+    }
+
+    /* Button Inside the Center Box */
+    .inside-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 34px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+      border-radius: 50px;
+      box-shadow: 0 8px 20px rgba(127, 29, 29, 0.28);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .inside-btn:hover {
+      background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+      transform: translateY(-2px);
+    }
+
+    /* Outside Navigation Buttons */
+    .controls {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      gap: 16px;
+    }
+
+    .nav-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      background-color: #e11d48;
+      border-radius: 50px;
+      box-shadow: 0 6px 18px rgba(14, 116, 144, 0.28);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background-color: #be123c;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sunny Sky Elements -->
+  <div class="sun"></div>
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+
+  <!-- Gray/Black Birds Flying Across the Upper Sky (Top 3% to 25%) -->
+  <div class="sky-bird bird-1" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#27272a" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#3f3f46" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#18181b" />
+    </svg>
+  </div>
+
+  <div class="sky-bird bird-2" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#3f3f46" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#52525b" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#27272a" />
+    </svg>
+  </div>
+
+  <div class="sky-bird bird-3" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#1f2937" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#374151" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#111827" />
+    </svg>
+  </div>
+
+  <div class="sky-bird bird-4" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#3f3f46" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#52525b" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#27272a" />
+    </svg>
+  </div>
+
+  <div class="sky-bird bird-5" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#27272a" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#3f3f46" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#18181b" />
+    </svg>
+  </div>
+
+  <div class="sky-bird bird-6" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#1f2937" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#4b5563" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#111827" />
+    </svg>
+  </div>
+
+  <!-- Gol Gumbaz (Bijapur) Illustration in Bottom-Left Corner -->
+  <svg class="gol-gumbaz-corner" viewBox="0 0 460 340" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="domeGrad" x1="0%" y1="15%" x2="100%" y2="85%">
+        <stop offset="0%" stop-color="#f3dfc1" />
+        <stop offset="55%" stop-color="#d6b488" />
+        <stop offset="100%" stop-color="#a67c52" />
+      </linearGradient>
+      <linearGradient id="wallGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#dfc39d" />
+        <stop offset="65%" stop-color="#c49e72" />
+        <stop offset="100%" stop-color="#9e764d" />
+      </linearGradient>
+      <linearGradient id="towerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#e8cfa9" />
+        <stop offset="55%" stop-color="#c8a276" />
+        <stop offset="100%" stop-color="#986f47" />
+      </linearGradient>
+      <linearGradient id="gardenGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#4d9e56" />
+        <stop offset="100%" stop-color="#2b6b35" />
+      </linearGradient>
+    </defs>
+
+    <path d="M0,295 Q110,255 240,285 T460,305 L460,340 L0,340 Z" fill="#86c478" opacity="0.65" />
+    <rect x="38" y="292" width="334" height="22" rx="3" fill="#9c754d" />
+    <rect x="44" y="286" width="322" height="7" fill="#d9bc94" />
+    <rect x="92" y="156" width="226" height="130" fill="url(#wallGrad)" />
+    <rect x="86" y="151" width="238" height="7" rx="2" fill="#8b623c" />
+    <rect x="88" y="143" width="234" height="8" fill="#e5cba5" />
+    <g fill="#cfa97e">
+      <circle cx="102" cy="140" r="4" /><circle cx="122" cy="140" r="4" />
+      <circle cx="142" cy="140" r="4" /><circle cx="162" cy="140" r="4" />
+      <circle cx="182" cy="140" r="4" /><circle cx="205" cy="138" r="5" />
+      <circle cx="228" cy="140" r="4" /><circle cx="248" cy="140" r="4" />
+      <circle cx="268" cy="140" r="4" /><circle cx="288" cy="140" r="4" />
+      <circle cx="306" cy="140" r="4" />
+    </g>
+
+    <path d="M114,136 C112,52 298,52 296,136 Z" fill="url(#domeGrad)" />
+    <rect x="112" y="133" width="186" height="10" rx="2" fill="#b88e62" />
+    <path d="M114,135 Q124,126 134,135 Q144,126 154,135 Q164,126 174,135 Q184,126 194,135 Q204,126 214,135 Q224,126 234,135 Q244,126 254,135 Q264,126 274,135 Q284,126 296,135" fill="none" stroke="#8c6239" stroke-width="2" />
+    <line x1="205" y1="68" x2="205" y2="52" stroke="#b4833e" stroke-width="3" stroke-linecap="round" />
+    <circle cx="205" cy="60" r="4" fill="#e6b85c" />
+    <circle cx="205" cy="53" r="2.5" fill="#f5d076" />
+
+    <path d="M112,286 L112,202 Q134,174 156,202 L156,286 Z" fill="#8b623c" />
+    <path d="M118,286 L118,208 Q134,185 150,208 L150,286 Z" fill="#6b492b" />
+    <rect x="126" y="232" width="16" height="22" rx="8" fill="#4a311b" />
+
+    <path d="M170,286 L170,192 Q205,160 240,192 L240,286 Z" fill="#8b623c" />
+    <path d="M178,286 L178,200 Q205,173 232,200 L232,286 Z" fill="#634226" />
+    <path d="M192,286 L192,238 Q205,222 218,238 L218,286 Z" fill="#3f2815" />
+
+    <path d="M254,286 L254,202 Q276,174 298,202 L298,286 Z" fill="#8b623c" />
+    <path d="M260,286 L260,208 Q276,185 292,208 L292,286 Z" fill="#6b492b" />
+    <rect x="268" y="232" width="16" height="22" rx="8" fill="#4a311b" />
+
+    <g>
+      <rect x="56" y="114" width="38" height="172" rx="3" fill="url(#towerGrad)" />
+      <g fill="#7c5533">
+        <rect x="61" y="122" width="6" height="12" rx="3" /><rect x="72" y="122" width="6" height="12" rx="3" /><rect x="83" y="122" width="6" height="12" rx="3" />
+        <rect x="61" y="146" width="6" height="12" rx="3" /><rect x="72" y="146" width="6" height="12" rx="3" /><rect x="83" y="146" width="6" height="12" rx="3" />
+        <rect x="61" y="170" width="6" height="12" rx="3" /><rect x="72" y="170" width="6" height="12" rx="3" /><rect x="83" y="170" width="6" height="12" rx="3" />
+        <rect x="61" y="194" width="6" height="12" rx="3" /><rect x="72" y="194" width="6" height="12" rx="3" /><rect x="83" y="194" width="6" height="12" rx="3" />
+        <rect x="61" y="218" width="6" height="12" rx="3" /><rect x="72" y="218" width="6" height="12" rx="3" /><rect x="83" y="218" width="6" height="12" rx="3" />
+        <rect x="61" y="242" width="6" height="12" rx="3" /><rect x="72" y="242" width="6" height="12" rx="3" /><rect x="83" y="242" width="6" height="12" rx="3" />
+      </g>
+      <g stroke="#8b623c" stroke-width="2">
+        <line x1="54" y1="139" x2="96" y2="139" />
+        <line x1="54" y1="163" x2="96" y2="163" />
+        <line x1="54" y1="187" x2="96" y2="187" />
+        <line x1="54" y1="211" x2="96" y2="211" />
+        <line x1="54" y1="235" x2="96" y2="235" />
+        <line x1="54" y1="259" x2="96" y2="259" />
+      </g>
+      <path d="M55,114 C55,86 95,86 95,114 Z" fill="url(#domeGrad)" />
+      <line x1="75" y1="93" x2="75" y2="85" stroke="#b4833e" stroke-width="2" />
+    </g>
+
+    <g>
+      <rect x="316" y="114" width="38" height="172" rx="3" fill="url(#towerGrad)" />
+      <g fill="#7c5533">
+        <rect x="321" y="122" width="6" height="12" rx="3" /><rect x="332" y="122" width="6" height="12" rx="3" /><rect x="343" y="122" width="6" height="12" rx="3" />
+        <rect x="321" y="146" width="6" height="12" rx="3" /><rect x="332" y="146" width="6" height="12" rx="3" /><rect x="343" y="146" width="6" height="12" rx="3" />
+        <rect x="321" y="170" width="6" height="12" rx="3" /><rect x="332" y="170" width="6" height="12" rx="3" /><rect x="343" y="170" width="6" height="12" rx="3" />
+        <rect x="321" y="194" width="6" height="12" rx="3" /><rect x="332" y="194" width="6" height="12" rx="3" /><rect x="343" y="194" width="6" height="12" rx="3" />
+        <rect x="321" y="218" width="6" height="12" rx="3" /><rect x="332" y="218" width="6" height="12" rx="3" /><rect x="343" y="218" width="6" height="12" rx="3" />
+        <rect x="321" y="242" width="6" height="12" rx="3" /><rect x="332" y="242" width="6" height="12" rx="3" /><rect x="343" y="242" width="6" height="12" rx="3" />
+      </g>
+      <g stroke="#8b623c" stroke-width="2">
+        <line x1="314" y1="139" x2="356" y2="139" />
+        <line x1="314" y1="163" x2="356" y2="163" />
+        <line x1="314" y1="187" x2="356" y2="187" />
+        <line x1="314" y1="211" x2="356" y2="211" />
+        <line x1="314" y1="235" x2="356" y2="235" />
+        <line x1="314" y1="259" x2="356" y2="259" />
+      </g>
+      <path d="M315,114 C315,86 355,86 355,114 Z" fill="url(#domeGrad)" />
+      <line x1="335" y1="93" x2="335" y2="85" stroke="#b4833e" stroke-width="2" />
+    </g>
+
+    <circle cx="34" cy="276" r="32" fill="#3b8244" />
+    <circle cx="62" cy="286" r="26" fill="#52a85b" />
+    <circle cx="372" cy="280" r="34" fill="#3b8244" />
+    <circle cx="404" cy="292" r="26" fill="#52a85b" />
+    <path d="M0,310 Q140,298 290,308 T460,316 L460,340 L0,340 Z" fill="url(#gardenGreen)" />
+  </svg>
+
+  <!-- Main Frosted Center Box -->
+  <main class="large-page-stage">
+    <div class="top-section">
+      <h1>Bijapur Days with You ☀️</h1>
+      <p class="subtitle">
+        It was one of the most memorable times for me. You know why? We shared a lot,
+        almost every day talking to you, Listen to it.
+      </p>
+
+      <!-- Subtle Smaller White Box Acting as a Clickable Link to Photos & Videos -->
+      <a href="photos2.html" class="photos-box-link">Photos &amp; Videos</a>
+
+      <div class="audio-card">
+        <audio id="voiceAudio2" src="Vijayapuradays.mp3" controls preload="auto"></audio>
+        <button class="play-toggle-btn" id="playToggleBtn2" type="button">▶ Play / Pause</button>
+      </div>
+
+      <div class="story-content">
+        It was a wonderful time, The main reason I felt so good when you were in Bijapur is because you respected me. My opinions mattered, and fights were equal. Like even if you fight, you would ask sorry and if I fight, I would ask sorry. It was not one-sided. That was the main reason why we had great fun back then.
+      </div>
+    </div>
+
+    <!-- Previous Chapter Button Inside the Center White Box -->
+    <a href="listen.html" class="inside-btn">&larr; Previous Page</a>
+<a href="listen3.html" class="inside-btn">Next Page &rarr;</a>
+  </main>
+
+  <!-- Outside Navigation Buttons -->
+  <div class="controls">
+    <a href="page3.html" class="nav-btn">&larr; Back</a>
+    <a href="index.html" class="nav-btn">Home</a>
+  </div>
+
+  <script>
+    const audio2 = document.getElementById('voiceAudio2');
+    const playToggleBtn2 = document.getElementById('playToggleBtn2');
+
+    playToggleBtn2.addEventListener('click', () => {
+      if (audio2.paused) {
+        audio2.play();
+      } else {
+        audio2.pause();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Until We Meet Again - Final Chapter</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      padding: 24px;
+      background: linear-gradient(180deg, #1e1b4b 0%, #4c1d95 26%, #9d174d 54%, #ea580c 82%, #fde047 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Twinkling Early Evening Stars */
+    .stars {
+      position: fixed;
+      inset: 0 0 55% 0;
+      z-index: 1;
+      pointer-events: none;
+      background-image:
+        radial-gradient(2px 2px at 12% 16%, rgba(255, 255, 255, 0.85), transparent),
+        radial-gradient(1.5px 1.5px at 26% 9%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(2px 2px at 44% 14%, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1.5px 1.5px at 64% 8%, rgba(255, 255, 255, 0.75), transparent),
+        radial-gradient(2px 2px at 82% 15%, rgba(255, 255, 255, 0.9), transparent),
+        radial-gradient(1.5px 1.5px at 91% 22%, rgba(255, 255, 255, 0.65), transparent);
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.45; }
+      100% { opacity: 0.95; }
+    }
+
+    /* Setting Evening Sun */
+    .evening-sun {
+      position: fixed;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 165px;
+      height: 165px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fef9c3 18%, #fb923c 60%, rgba(249, 115, 22, 0) 76%);
+      box-shadow: 0 0 85px 35px rgba(251, 146, 60, 0.55);
+      z-index: 1;
+      pointer-events: none;
+      animation: sunsetPulse 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes sunsetPulse {
+      0% { transform: translateX(-50%) scale(1); opacity: 0.88; }
+      100% { transform: translateX(-50%) scale(1.07); opacity: 1; }
+    }
+
+    /* Soft Dusk Clouds */
+    .cloud {
+      position: fixed;
+      background: rgba(254, 215, 170, 0.28);
+      border-radius: 100px;
+      z-index: 2;
+      pointer-events: none;
+      filter: blur(2px);
+      animation: driftCloud linear infinite;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: '';
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    .cloud-1 {
+      width: 185px;
+      height: 50px;
+      top: 17%;
+      left: -210px;
+      animation-duration: 44s;
+    }
+    .cloud-1::before { width: 80px; height: 80px; top: -36px; left: 26px; }
+    .cloud-1::after { width: 62px; height: 62px; top: -25px; left: 90px; }
+
+    .cloud-2 {
+      width: 220px;
+      height: 58px;
+      top: 28%;
+      left: -250px;
+      animation-duration: 54s;
+      animation-delay: 12s;
+    }
+    .cloud-2::before { width: 92px; height: 92px; top: -42px; left: 32px; }
+    .cloud-2::after { width: 70px; height: 70px; top: -28px; left: 105px; }
+
+    @keyframes driftCloud {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(100vw + 340px)); }
+    }
+
+    /* Black Birds Flying Across the Top Evening Sky */
+    .sky-bird {
+      position: fixed;
+      left: -80px;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.92;
+      animation: birdFlyAcross linear infinite;
+    }
+
+    .sky-bird svg {
+      display: block;
+      overflow: visible;
+    }
+
+    .bird-wing-left {
+      transform-origin: 24px 16px;
+      animation: flapLeft 0.55s ease-in-out infinite alternate;
+    }
+
+    .bird-wing-right {
+      transform-origin: 24px 16px;
+      animation: flapRight 0.55s ease-in-out infinite alternate;
+    }
+
+    @keyframes flapLeft {
+      0% { transform: rotate(-18deg) scaleY(1); }
+      100% { transform: rotate(22deg) scaleY(0.75); }
+    }
+
+    @keyframes flapRight {
+      0% { transform: rotate(18deg) scaleY(1); }
+      100% { transform: rotate(-22deg) scaleY(0.75); }
+    }
+
+    @keyframes birdFlyAcross {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(28vw, -14px); }
+      50% { transform: translate(56vw, 10px); }
+      75% { transform: translate(84vw, -12px); }
+      100% { transform: translate(calc(100vw + 160px), 4px); }
+    }
+
+    .bird-1 {
+      top: 5%;
+      width: 48px;
+      animation-duration: 21s;
+      animation-delay: 0s;
+    }
+
+    .bird-2 {
+      top: 10%;
+      width: 44px;
+      animation-duration: 23s;
+      animation-delay: 3s;
+    }
+
+    .bird-3 {
+      top: 16%;
+      width: 50px;
+      animation-duration: 20s;
+      animation-delay: 6.5s;
+    }
+
+    .bird-4 {
+      top: 7.5%;
+      width: 42px;
+      animation-duration: 24s;
+      animation-delay: 11s;
+    }
+
+    .bird-5 {
+      top: 14%;
+      width: 46px;
+      animation-duration: 22s;
+      animation-delay: 15s;
+    }
+
+    /* Full-Width Evening Goodbye Illustration */
+    .goodbye-scene {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 295px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Gentle Waving Arm Animations */
+    .gf-wave-arm {
+      transform-origin: 214px 168px;
+      animation: waveLeft 1.2s ease-in-out infinite alternate;
+    }
+
+    .bf-wave-arm {
+      transform-origin: 296px 163px;
+      animation: waveRight 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes waveLeft {
+      0% { transform: rotate(-14deg); }
+      100% { transform: rotate(16deg); }
+    }
+
+    @keyframes waveRight {
+      0% { transform: rotate(14deg); }
+      100% { transform: rotate(-16deg); }
+    }
+
+    /* Floating Tiny Heart Between Them */
+    .goodbye-heart {
+      animation: floatHeart 2.8s ease-in-out infinite;
+    }
+
+    @keyframes floatHeart {
+      0% { transform: translateY(0) scale(0.95); opacity: 0.75; }
+      50% { transform: translateY(-10px) scale(1.1); opacity: 1; }
+      100% { transform: translateY(0) scale(0.95); opacity: 0.75; }
+    }
+
+    /* Main Frosted Center Box */
+    .large-page-stage {
+      position: relative;
+      z-index: 5;
+      width: min(860px, 92vw);
+      min-height: min(560px, 76vh);
+      max-height: 78vh;
+      overflow-y: auto;
+      background-color: rgba(255, 247, 250, 0.62);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.88);
+      box-shadow: 0 20px 50px rgba(30, 27, 75, 0.35);
+      padding: 32px 42px 34px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      color: #881337;
+      text-align: center;
+      gap: 18px;
+    }
+
+    .top-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .large-page-stage h1 {
+      font-size: 2.25rem;
+      color: #9f1239;
+      text-shadow: 0 1px 10px rgba(255, 255, 255, 0.92);
+    }
+
+    .subtitle {
+      font-size: 1.12rem;
+      font-weight: 500;
+      line-height: 1.65;
+      color: #881337;
+      max-width: 650px;
+      text-shadow: 0 1px 8px rgba(255, 255, 255, 0.9);
+    }
+
+    .story-content {
+      width: 100%;
+      max-width: 720px;
+      margin-top: 8px;
+      padding: 20px 24px;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1.5px solid rgba(255, 179, 198, 0.85);
+      border-radius: 14px;
+      font-size: 1.14rem;
+      font-weight: 500;
+      line-height: 1.8;
+      color: #881337;
+      text-align: left;
+      white-space: pre-line;
+      text-shadow: 0 1px 6px rgba(255, 255, 255, 0.85);
+    }
+.audio-card {
+      width: min(460px, 95%);
+      background: rgba(255, 241, 242, 0.9);
+      border: 2px solid rgba(244, 63, 94, 0.8);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.16);
+    }
+
+    audio {
+      width: 100%;
+      height: 38px;
+      outline: none;
+    }
+
+    .play-toggle-btn {
+      padding: 10px 26px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(127, 29, 29, 0.28);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .play-toggle-btn:hover {
+      background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+      transform: translateY(-1px);
+    }
+
+    /* Single Previous Button Inside the Center Box */
+    .inside-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 34px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+      border-radius: 50px;
+      box-shadow: 0 8px 20px rgba(127, 29, 29, 0.3);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .inside-btn:hover {
+      background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+      transform: translateY(-2px);
+    }
+
+    /* Outside Navigation Buttons */
+    .controls {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      gap: 16px;
+    }
+
+    .nav-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      background-color: #e11d48;
+      border-radius: 50px;
+      box-shadow: 0 6px 18px rgba(30, 27, 75, 0.35);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background-color: #be123c;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Evening Sky Elements -->
+  <div class="stars"></div>
+  <div class="evening-sun"></div>
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+
+  <!-- Black Birds Flying Across the Top Evening Sky -->
+  <div class="sky-bird bird-1" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#09090b" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#18181b" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#000000" />
+    </svg>
+  </div>
+
+  <div class="sky-bird bird-2" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#09090b" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#18181b" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#000000" />
+    </svg>
+  </div>
+
+  <div class="sky-bird bird-3" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#09090b" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#18181b" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#000000" />
+    </svg>
+  </div>
+
+  <div class="sky-bird bird-4" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#09090b" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#18181b" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#000000" />
+    </svg>
+  </div>
+
+  <div class="sky-bird bird-5" aria-hidden="true">
+    <svg viewBox="0 0 48 28">
+      <path class="bird-wing-left" d="M24,16 Q15,4 3,11 Q14,12 24,17 Z" fill="#09090b" />
+      <path class="bird-wing-right" d="M24,16 Q33,4 45,11 Q34,12 24,17 Z" fill="#18181b" />
+      <ellipse cx="24" cy="17" rx="3.2" ry="1.8" fill="#000000" />
+    </svg>
+  </div>
+
+  <!-- Evening Scene: Girlfriend & Boyfriend Waving Goodbye to Each Other -->
+  <svg class="goodbye-scene" viewBox="0 0 1440 295" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="duskHills" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#3b0764" />
+        <stop offset="100%" stop-color="#1e1b4b" />
+      </linearGradient>
+      <linearGradient id="walkwayGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#334155" />
+        <stop offset="100%" stop-color="#0f172a" />
+      </linearGradient>
+      <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fef08a" stop-opacity="0.75" />
+        <stop offset="100%" stop-color="#fef08a" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    <!-- Distant Evening Horizon Silhouettes & Trees -->
+    <path d="M0,185 Q240,145 520,175 T1040,168 T1440,182 L1440,235 L0,235 Z" fill="url(#duskHills)" opacity="0.85" />
+    <g fill="#180826">
+      <circle cx="85" cy="168" r="38" />
+      <circle cx="122" cy="178" r="30" />
+      <circle cx="1295" cy="166" r="42" />
+      <circle cx="1345" cy="176" r="32" />
+    </g>
+
+    <!-- Evening Walkway / Pavement -->
+    <rect x="0" y="226" width="1440" height="8" fill="#64748b" />
+    <rect x="0" y="234" width="1440" height="61" fill="url(#walkwayGrad)" />
+
+    <!-- Glowing Evening Streetlights -->
+    <g>
+      <circle cx="165" cy="132" r="38" fill="url(#lampGlow)" />
+      <path d="M150,226 L150,136 Q150,126 162,126 L168,126" fill="none" stroke="#1e293b" stroke-width="4.5" />
+      <ellipse cx="166" cy="128" rx="8" ry="4.5" fill="#fef08a" />
+
+      <circle cx="1265" cy="132" r="38" fill="url(#lampGlow)" />
+      <path d="M1280,226 L1280,136 Q1280,126 1268,126 L1262,126" fill="none" stroke="#1e293b" stroke-width="4.5" />
+      <ellipse cx="1264" cy="128" rx="8" ry="4.5" fill="#fef08a" />
+    </g>
+
+    <!-- Girlfriend & Boyfriend Saying Goodbye (Positioned on Left Foreground so Clear of Center Card) -->
+    <g>
+      <!-- Floating Heart Between Them -->
+      <path class="goodbye-heart" d="M255,122 C255,116 247,114 247,120 C247,125 255,130 255,130 C255,130 263,125 263,120 C263,114 255,116 255,122 Z" fill="#fb7185" />
+
+      <!-- Girlfriend on the Left Facing Boyfriend & Waving Goodbye -->
+      <g>
+        <!-- Long Dark Hair -->
+        <path d="M185,144 Q176,168 182,192 L206,192 Q212,168 203,144 Z" fill="#09090b" />
+        <!-- Head -->
+        <circle cx="195" cy="145" r="12" fill="#f1c27d" />
+        <path d="M183,144 C183,131 207,131 207,144 Q197,139 183,144 Z" fill="#09090b" />
+        <!-- Dress / Top -->
+        <path d="M184,158 L206,158 L213,204 L177,204 Z" fill="#f43f5e" />
+        <!-- Waving Right Arm Raised Toward Boyfriend -->
+        <path class="gf-wave-arm" d="M204,164 L224,142" stroke="#f1c27d" stroke-width="6.5" stroke-linecap="round" />
+        <!-- Left Arm -->
+        <path d="M185,164 L177,188" stroke="#f1c27d" stroke-width="6" stroke-linecap="round" />
+        <!-- Legs -->
+        <line x1="189" y1="204" x2="188" y2="233" stroke="#f1c27d" stroke-width="6.5" stroke-linecap="round" />
+        <line x1="201" y1="204" x2="202" y2="233" stroke="#f1c27d" stroke-width="6.5" stroke-linecap="round" />
+        <ellipse cx="190" cy="234" rx="6" ry="3.2" fill="#ffffff" />
+        <ellipse cx="204" cy="234" rx="6" ry="3.2" fill="#ffffff" />
+      </g>
+
+      <!-- Boyfriend on the Right Facing Girlfriend & Waving Goodbye -->
+      <g>
+        <!-- Head & Hair -->
+        <circle cx="315" cy="136" r="12.5" fill="#e0ac69" />
+        <path d="M302,135 C302,121 328,121 328,135 Q315,128 302,135 Z" fill="#0f172a" />
+        <!-- Jacket / Shirt -->
+        <path d="M301,150 L329,150 L332,196 L298,196 Z" fill="#1d4ed8" />
+        <!-- Waving Left Arm Raised Toward Girlfriend -->
+        <path class="bf-wave-arm" d="M303,157 L283,134" stroke="#1d4ed8" stroke-width="7.5" stroke-linecap="round" />
+        <circle cx="282" cy="133" r="4" fill="#e0ac69" />
+        <!-- Right Arm -->
+        <path d="M327,157 L335,186" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round" />
+        <!-- Trousers -->
+        <line x1="308" y1="196" x2="306" y2="233" stroke="#0f172a" stroke-width="8.5" stroke-linecap="round" />
+        <line x1="322" y1="196" x2="324" y2="233" stroke="#0f172a" stroke-width="8.5" stroke-linecap="round" />
+        <ellipse cx="304" cy="234" rx="7" ry="3.5" fill="#f8fafc" />
+        <ellipse cx="322" cy="234" rx="7" ry="3.5" fill="#f8fafc" />
+      </g>
+    </g>
+  </svg>
+
+  <!-- Main Frosted Center Box (Text & Previous Button Only) -->
+  <main class="large-page-stage">
+    <div class="top-section">
+      <h1>My Persective. </h1>
+      <p class="subtitle">
+        How i felt at instances.
+      </p>
+
+      <div class="story-content">
+        That was a wonderful journey, isn't it? Obviously you have to agree.We had so much fun in such small duration of time. Like literally every day was fun. We could not understand how fast time went by. I really want to come back and recreate those moments back in my life. I was waiting for you every evening, and you would come. We would go out every day. It was so nice. Every day you were asking me why, and I was telling some false reasons, and you were agreeing to those reasons, and we are going out. And 10 o'clock I was going back home. I was leaving you every day. Such, such a wonderful journey.<p><br>I was literally so obsessed with you, like that I did not see other girls at all.  You were so much high in my priority that anybody calls me, anybody calls me, I was not picking when I was talking to you. Literally even when Amma called, I was talking to you completely and then picking her call. That much I was prioritizing you. Like literally everywhere you were fisrst for me ,You won't believe me, but it was such that even when amma was beside me, Akka was beside me, or I was in a very, very busy situation also, I was picking your calls or at least texting you. It was so much important for me to talk to you. If anybody, specifically boy, comes and talks to you, I was feeling very much jealous. But then I was controlling. I was not telling it to you because I knew that you'll not feel good.  I was feeling very much jealous. Like I was saying to myself, she's mine, you guys don't talk to her.I was really very, very obsessed with you. <br><br>Love was so pure and true that other people's evil eyes and bad intentions had no impact or could do nothing to harm u when I was with you. <br><br> But at one point I realized that you don't like it.Like you are saying, I don't want anything from you. I don't care. Don't do anything for me. Get lost, all those things. It was really hurting me. Of course, after you said multiple times, I felt really bad. Like literally you don't understand what is my situation at all. You only think from your point of view sometimes and then say ur angry, all the time you act like as if you're not at all interested in talking to me, being with me, whateverI don't know why you act like that. Of course I know that you have a lot of ego and attitude.  You said your ego is important.  I agree with that. But showing ego to whom? To a person who loves you so much, who is ready to lose anything for you, who can loose thousand times for you. Because you are more important than losing or their attitude. They look after you like a baby and has given their Jeeva to you. And still you want to show ego and attitude to such a person? Really?
+I was so much obsessed with you. You say I curse you, I don't know. How can u say that, you know what? I had done 21 days vratha for you. Every day morning I have to wake up at 5:30, 6, and then I will take bath. After taking bath, I was going to puja room and have to do puja. After doing puja, I have to say the stotra. It takes about 30 minutes to 45 minutes. Every day I've done this for 21 days. Then I have to go to the temple. You cannot miss it one day also. To such a person you can still show your ego? Seriously? Hurting that person is so simple, You feel good? You say you love me. Okay fine. What are your actions you have done? I told you that day that I had met with an accident, you saw the message, you did not reply. And after calling me, the first thing you said was, It's not my fault, you did not say, How are you? Like literally I was shocked to hear that from you. I'll give you one more example. When I was crying, when you were deleting snaps, I was begging for you. It was hurting me. You know it. I was crying. I was getting hurt. Still you did not care. I was begging you not to delete it. Still you know that all my memories were gone. All my memories were gone at one go because of your anger. And still you did not care. You did not bother to ask me sorry after that also. For you, your ego was more important than that, isn't it? You still can't justify showing your ego to me? Seriously? I'll tell you what. Even God will not forgive you for showing your attitude and ego to such a person. <br><br>Remember one thing, when somebody is so much excited about you, even after being hurt thousand times from you, still they come back to you, ask you sorry. Every time they meet you, they're excited about you. You know what? That is not taken for granted. That is a blessing that you only get once in several lives you get as a human. It's really a blessing from God himself. How do you think I can get to know everything about you? Every single thing about you. You're crying, you're happy, you're sad, you're angry, you're sitting, you're sleeping, you want to eat something. What you want to eat exactly? Everything about you. That is only possible for your mom, nobody else. Even your mom misses it sometimes. But I don't. Have you ever wondered how I know everything? Even without talking to you or seeing you?<br> <br>I know while reading this ur not trying to understand instead ur feeling angry on me itself its left to u, if what i said is true the u can think about it.<br>
+I have done everything I can to the best of my knowledge for you. I have not missed even a single chance to impress you or make you feel good or make you smile. I was ready to take any risk for you. Like, you're more than obsession to me, and nothing was more important to me than u, Like now I can understand. Seriously, you're not even jealous when some other girl comes and hugs me or kisses me also u don't care, you have no problem. Or I don't know, your ego is coming in between, so you're not telling anything, or what. Back then u were getting soo much jealous , u were very strict on me, caring as well , u would check my whatsapp on anydesk and all, u were that strict now u act like u don't care at all, offcourse now u cant check my phone and all but still u dont ask also, seeing other people in relationship i feel soo bad.<br>
+After all this, I can say that I lost you only won. Your ego is much, much greater than my love. How much ever I love you, your ego is more than that. I can't break it. I thought that I could end your ego with my love. That's why how much ever times you scolded me with bad words also, I did not stop coming back to you. Every time I tried to hit you with my love, not with my bad words or with cold heart. But at the end you only won. Congratulations on that. But I don't feel I have lost. In God's eyes, I think I have only one. I have not hurt anybody. I have never made anybody feel insecure. I have always tried to keep you happy, smiling, and feeling safe and loved all the time.<br>
+You have no reason to be with me, because I don't have anything. You have everything right now, whatever you wanted. It is your wish to go ahead with this beautiful journey or break it. But once you make decision, you cannot change it. For one last time i want to say this to you ...
+<br>Maybe I'm sorry for entering your life. But thank you for entering my life. For making me feel loved, at least for couple of times. Though it is few times, though it is once, at least I'm happy about it. I felt loved. I felt good because of you, thank you for that.
+      </div>
+    </div>
+<!-- First Audio Card -->
+      <div class="audio-card">
+        <audio id="voiceAudio5_1" src="sonu.mp4" controls preload="auto"></audio>
+        <button class="play-toggle-btn" id="playToggleBtn5_1" type="button">▶ Play / Pause</button>
+      </div>
+
+      <!-- Second Audio Card -->
+      <div class="audio-card">
+        <audio id="voiceAudio5_2" src="diam.mp4" controls preload="auto"></audio>
+        <button class="play-toggle-btn" id="playToggleBtn5_2" type="button">▶ Play / Pause</button>
+      </div>
+
+    <!-- Single Previous Button Inside the Center Box -->
+    <a href="listen4.html" class="inside-btn">&larr; Previous Page</a>
+  </main>
+
+  <!-- Outside Navigation Buttons -->
+  <div class="controls">
+    <a href="page3.html" class="nav-btn">&larr; Back</a>
+    <a href="index.html" class="nav-btn">Home</a>
+  </div>
+<script>
+    const audio5_1 = document.getElementById('voiceAudio5_1');
+    const playToggleBtn5_1 = document.getElementById('playToggleBtn5_1');
+
+    const audio5_2 = document.getElementById('voiceAudio5_2');
+    const playToggleBtn5_2 = document.getElementById('playToggleBtn5_2');
+
+    playToggleBtn5_1.addEventListener('click', () => {
+      if (audio5_1.paused) {
+        audio5_2.pause();
+        audio5_1.play();
+      } else {
+        audio5_1.pause();
+      }
+    });
+
+    playToggleBtn5_2.addEventListener('click', () => {
+      if (audio5_2.paused) {
+        audio5_1.pause();
+        audio5_2.play();
+      } else {
+        audio5_2.pause();
+      }
+    });
+  </script>
+</body>
+</html>

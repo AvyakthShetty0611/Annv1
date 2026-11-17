@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our College Days at RNSIT - Listen</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      padding: 24px;
+      /* Full-screen RNS Institute of Technology Gate Background */
+      background-image: url('rnsit.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Subtle Soft Overlay so Text & Center Card Remain Crisp Over the Gate Photo */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.16);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Main Frosted White Center Box */
+    .large-page-stage {
+      position: relative;
+      z-index: 5;
+      width: min(860px, 92vw);
+      min-height: min(580px, 78vh);
+      max-height: 80vh;
+      overflow-y: auto;
+      background-color: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border-radius: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.92);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.28);
+      padding: 28px 40px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      color: #881337;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .top-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .large-page-stage h1 {
+      font-size: 2.25rem;
+      color: #9f1239;
+      text-shadow: 0 1px 10px rgba(255, 255, 255, 0.95);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.65;
+      color: #881337;
+      max-width: 650px;
+      text-shadow: 0 1px 8px rgba(255, 255, 255, 0.9);
+    }
+
+    /* Subtle Smaller White Box for "Photos & Videos" */
+    .photos-box-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 210px;
+      padding: 12px 34px;
+      margin: 2px 0;
+      background-color: rgba(255, 255, 255, 0.88);
+      border: 1.5px solid rgba(255, 179, 198, 0.95);
+      border-radius: 12px;
+      color: #881337;
+      font-size: 1.12rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(136, 19, 55, 0.14);
+      transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .photos-box-link:hover {
+      background-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(136, 19, 55, 0.2);
+    }
+
+    .audio-card {
+      width: min(460px, 95%);
+      background: rgba(255, 241, 242, 0.92);
+      border: 2px solid rgba(244, 63, 94, 0.8);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.16);
+    }
+
+    audio {
+      width: 100%;
+      height: 38px;
+      outline: none;
+    }
+
+    .play-toggle-btn {
+      padding: 10px 26px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(127, 29, 29, 0.28);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .play-toggle-btn:hover {
+      background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+      transform: translateY(-1px);
+    }
+
+    .story-content {
+      width: 100%;
+      max-width: 720px;
+      margin-top: 6px;
+      font-size: 1.12rem;
+      font-weight: 500;
+      line-height: 1.75;
+      color: #881337;
+      text-align: left;
+      white-space: pre-line;
+      text-shadow: 0 1px 8px rgba(255, 255, 255, 0.9);
+    }
+
+    /* Inside Navigation Buttons Row */
+    .inside-nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .inside-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+      border-radius: 50px;
+      box-shadow: 0 8px 20px rgba(127, 29, 29, 0.3);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .inside-btn:hover {
+      background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+      transform: translateY(-2px);
+    }
+
+    /* Outside Navigation Buttons */
+    .controls {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      gap: 16px;
+    }
+
+    .nav-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      background-color: #e11d48;
+      border-radius: 50px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.35);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background-color: #be123c;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Frosted Center Box -->
+  <main class="large-page-stage">
+    <div class="top-section">
+      <h1>Our IBM training days 🎓</h1>
+      <p class="subtitle">
+        Every part time with you was soo memorable and fun. Offcourse u disagree and show attitute but if i had shown ego like u then we would have missed all the once in a lifetime moments, still u will not agree. 
+      </p>
+
+      <!-- Subtle Smaller White Box Acting as a Clickable Link to Photos & Videos -->
+      <a href="photos4.html" class="photos-box-link">Photos &amp; Videos</a>
+
+      <!-- Audio Card -->
+      <div class="audio-card">
+        <audio id="voiceAudio4" src="ibm.mp4" controls preload="auto"></audio>
+        <button class="play-toggle-btn" id="playToggleBtn4" type="button">▶ Play / Pause</button>
+      </div>
+
+      <div class="story-content">
+        
+      </div>
+    </div>
+
+    <!-- Inside Navigation Buttons -->
+    <div class="inside-nav-row">
+      <a href="listen3.html" class="inside-btn">&larr; Previous Page</a>
+      <a href="listen5.html" class="inside-btn">Next Page &rarr;</a>
+    </div>
+  </main>
+
+  <!-- Outside Navigation Buttons -->
+  <div class="controls">
+    <a href="page3.html" class="nav-btn">&larr; Back</a>
+    <a href="index.html" class="nav-btn">Home</a>
+  </div>
+
+  <script>
+    const audio4 = document.getElementById('voiceAudio4');
+    const playToggleBtn4 = document.getElementById('playToggleBtn4');
+
+    playToggleBtn4.addEventListener('click', () => {
+      if (audio4.paused) {
+        audio4.play();
+      } else {
+        audio4.pause();
+      }
+    });
+  </script>
+</body>
+</html>
